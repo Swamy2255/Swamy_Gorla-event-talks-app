@@ -96,6 +96,12 @@ function setupEventListeners() {
 
     // Textarea character count listener
     tweetTextarea.addEventListener('input', updateTweetCharCount);
+
+    // Export CSV button
+    const exportCsvBtn = document.getElementById('exportCsvBtn');
+    if (exportCsvBtn) {
+        exportCsvBtn.addEventListener('click', exportToCsv);
+    }
 }
 
 // Show/Hide Clear Search Button
@@ -484,4 +490,63 @@ function showToast(message, type = 'success') {
     setTimeout(() => {
         toastNotification.classList.remove('show');
     }, 3000);
+}
+
+// Export Filtered Releases to CSV
+function exportToCsv() {
+    if (filteredReleases.length === 0) {
+        showToast("No release notes available to export.", "error");
+        return;
+    }
+    
+    // CSV Headers
+    const headers = ["ID", "Date", "ISO Date", "Type", "Text Content", "Link"];
+    
+    // Helper to escape CSV values
+    const escapeCsv = (val) => {
+        if (val === null || val === undefined) return "";
+        let stringVal = String(val);
+        // Escape double quotes by doubling them
+        stringVal = stringVal.replace(/"/g, '""');
+        // If value contains comma, double quote, or newline, wrap it in double quotes
+        if (stringVal.includes(',') || stringVal.includes('"') || stringVal.includes('\n') || stringVal.includes('\r')) {
+            return `"${stringVal}"`;
+        }
+        return stringVal;
+    };
+    
+    // Build CSV content
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+    
+    filteredReleases.forEach(rel => {
+        const row = [
+            rel.id,
+            rel.date,
+            rel.iso_date,
+            rel.type,
+            rel.text,
+            rel.link
+        ];
+        csvRows.push(row.map(escapeCsv).join(','));
+    });
+    
+    const csvContent = csvRows.join('\n');
+    
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    
+    // Create a filename with current filter/date details
+    const filterName = currentFilter.toLowerCase();
+    const dateStr = new Date().toISOString().slice(0, 10);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `bigquery_releases_${filterName}_${dateStr}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showToast("CSV file exported successfully!");
 }
