@@ -43,6 +43,7 @@ const toastMessage = document.getElementById('toastMessage');
 
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     fetchReleases(false);
     setupEventListeners();
 });
@@ -101,6 +102,12 @@ function setupEventListeners() {
     const exportCsvBtn = document.getElementById('exportCsvBtn');
     if (exportCsvBtn) {
         exportCsvBtn.addEventListener('click', exportToCsv);
+    }
+
+    // Theme Toggle button
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', toggleTheme);
     }
 }
 
@@ -549,4 +556,43 @@ function exportToCsv() {
     document.body.removeChild(link);
     
     showToast("CSV file exported successfully!");
+}
+
+// Theme Management Functions
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        document.body.classList.remove('dark-theme');
+    } else {
+        document.body.classList.add('dark-theme');
+        document.body.classList.remove('light-theme');
+    }
+    updateThemeUI();
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('light-theme');
+    document.body.classList.toggle('dark-theme');
+    
+    const isLight = document.body.classList.contains('light-theme');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    
+    updateThemeUI();
+    showToast(`Swapped to ${isLight ? 'Light' : 'Dark'} mode!`);
+}
+
+function updateThemeUI() {
+    const themeIcon = document.getElementById('themeIcon');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (!themeIcon || !themeToggleBtn) return;
+    
+    const isLight = document.body.classList.contains('light-theme');
+    if (isLight) {
+        themeIcon.className = 'fa-solid fa-moon';
+        themeToggleBtn.title = "Toggle Dark Mode";
+    } else {
+        themeIcon.className = 'fa-solid fa-sun';
+        themeToggleBtn.title = "Toggle Light Mode";
+    }
 }

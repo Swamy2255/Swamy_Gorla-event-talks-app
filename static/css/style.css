@@ -48,6 +48,51 @@
     --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.25);
 }
 
+/* Light Theme Variables Overrides */
+body.light-theme {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #f1f5f9;
+    --bg-card: rgba(255, 255, 255, 0.85);
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(37, 99, 235, 0.4);
+    
+    /* Text colors */
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    
+    /* Brand & Accent Colors */
+    --google-blue: #2563eb;
+    --accent-glow: rgba(37, 99, 235, 0.06);
+    
+    /* Release type styles - adjusted for readability on light BG */
+    --type-feature: #047857;
+    --type-feature-bg: rgba(4, 120, 87, 0.06);
+    --type-feature-border: rgba(4, 120, 87, 0.15);
+    
+    --type-announcement: #b45309;
+    --type-announcement-bg: rgba(180, 83, 9, 0.06);
+    --type-announcement-border: rgba(180, 83, 9, 0.15);
+    
+    --type-changed: #0e7490;
+    --type-changed-bg: rgba(14, 116, 144, 0.06);
+    --type-changed-border: rgba(14, 116, 144, 0.15);
+    
+    --type-deprecated: #b91c1c;
+    --type-deprecated-bg: rgba(185, 28, 28, 0.06);
+    --type-deprecated-border: rgba(185, 28, 28, 0.15);
+    
+    --type-general: #6d28d9;
+    --type-general-bg: rgba(109, 40, 217, 0.06);
+    --type-general-border: rgba(109, 40, 217, 0.15);
+    
+    /* Shadows overrides */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.12);
+    --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.12);
+}
+
 /* Reset and Base Styles */
 * {
     box-sizing: border-box;
@@ -1042,4 +1087,163 @@ body {
         top: 1.5rem;
         right: 1.5rem;
     }
+}
+
+/* Theme Toggle button and Light Theme Overrides */
+.btn-icon-only {
+    padding: 0.75rem !important;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+body.light-theme {
+    background-color: var(--bg-primary);
+}
+
+body.light-theme .glow-bg {
+    background: 
+        radial-gradient(circle at 15% 15%, rgba(37, 99, 235, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.04) 0%, transparent 35%),
+        radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 45%);
+}
+
+body.light-theme .btn-secondary {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+body.light-theme .btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.09);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .status-indicator {
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .search-box input {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02) inset;
+}
+
+body.light-theme .search-box input:focus {
+    background: #ffffff;
+    border-color: var(--google-blue);
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.1), 0 2px 6px rgba(0, 0, 0, 0.02) inset;
+}
+
+body.light-theme .filter-pill {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: var(--text-secondary);
+}
+
+body.light-theme .filter-pill:hover {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text-primary);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+body.light-theme .filter-pill.active {
+    background: var(--google-blue-gradient);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.2);
+}
+
+body.light-theme .filter-pill .badge {
+    background: rgba(0, 0, 0, 0.08);
+    color: var(--text-secondary);
+}
+
+body.light-theme .filter-pill.active .badge {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+/* Light Theme Card Overrides */
+body.light-theme .update-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+body.light-theme .update-card:hover {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .update-card.selected {
+    background: #ffffff;
+    border-color: var(--google-blue);
+    box-shadow: var(--shadow-glow), 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .update-card code {
+    background: rgba(0, 0, 0, 0.05);
+    color: #d01770;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+body.light-theme .action-btn {
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .action-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+body.light-theme .action-btn.btn-tweet-action {
+    background: rgba(29, 155, 240, 0.06);
+    color: #1d9bf0;
+    border-color: rgba(29, 155, 240, 0.15);
+}
+
+body.light-theme .action-btn.btn-tweet-action:hover {
+    background: #1d9bf0;
+    color: #ffffff;
+    border-color: transparent;
+}
+
+/* Light Theme Tweet Modal Overrides */
+body.light-theme .tweet-preview-container {
+    background: #ffffff;
+    border: 1px solid #e1e8ed;
+}
+
+body.light-theme .tweet-user-meta .user-name {
+    color: #0f1419;
+}
+
+body.light-theme .tweet-user-meta .user-handle {
+    color: #536471;
+}
+
+body.light-theme .tweet-logo {
+    color: #0f1419;
+}
+
+body.light-theme .tweet-composer-area textarea {
+    color: #0f1419;
+}
+
+body.light-theme .tweet-composer-footer {
+    border-top: 1px solid #e1e8ed;
+}
+
+body.light-theme .progress-ring-bg {
+    stroke: #e1e8ed;
+}
+
+body.light-theme .char-count-text {
+    color: #536471;
 }
